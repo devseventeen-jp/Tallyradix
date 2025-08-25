@@ -32,3 +32,10 @@ This project aims to provide a simple yet extensible way to handle double-entry 
 ```bash
 git clone https://github.com/devseventeen-jp/journal-entry-api.git
 cd journal-entry-api
+cat << EOF > .env
+DJANGO_SECRET_KEY=supersecretkey
+DEBUG=1
+DATABASE_URL=postgres://postgres:postgres@db:5432/accounting_db
+DJANGO_LANGUAGE_CODE=ja
+DJANGO_TIME_ZONE=Asia/Tokyo
+EOF
