@@ -1,8 +1,10 @@
 import os
 import dj_database_url
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv()
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-secret-key")
 DEBUG = os.getenv("DEBUG", "0") == "1"
@@ -16,7 +18,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "accounting",
+    "journal",
 ]
 
 MIDDLEWARE = [
@@ -29,7 +31,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "config.urls"
+ROOT_URLCONF = "accounting.urls"
 
 TEMPLATES = [
     {
@@ -64,8 +66,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-LANGUAGE_CODE = "ja"
-TIME_ZONE = "Asia/Tokyo"
+# Language / Timezone injection
+LANGUAGE_CODE = os.getenv("DJANGO_LANGUAGE_CODE", "en")
+TIME_ZONE = os.getenv("DJANGO_TIME_ZONE", "UTC")
+
 USE_I18N = True
 USE_TZ = True
 
