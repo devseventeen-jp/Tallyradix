@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
+TOKEN_EXPIRE_DAYS = os.getenv("TOKEN_EXPIRE_DAYS", 30)
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-secret-key")
 DEBUG = os.getenv("DEBUG", "0") == "1"
 ALLOWED_HOSTS = ["*"]
@@ -56,7 +57,7 @@ DATABASES = {
     "default": dj_database_url.config(
         default="postgres://postgres:postgres@db:5432/accounting_db",
         conn_max_age=600,
-    }
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [

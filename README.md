@@ -38,4 +38,7 @@ DEBUG=1
 DATABASE_URL=postgres://postgres:postgres@db:5432/accounting_db
 DJANGO_LANGUAGE_CODE=ja
 DJANGO_TIME_ZONE=Asia/Tokyo
+# edit your-32-byte-key and DRF Tokn expire days
+AES_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+TOKEN_EXPIRE_DAYS=30
 EOF
