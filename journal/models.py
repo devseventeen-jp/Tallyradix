@@ -1,4 +1,6 @@
+import uuid
 from django.db import models
+from django.conf import settings
 
 class Account(models.Model):
     """Account Title Master"""
@@ -11,11 +13,15 @@ class Account(models.Model):
 
 class JournalEntry(models.Model):
     """Journal voucher (header part)"""
+    id = models.BigAutoField(primary_key=True)
+    transaction_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     date = models.DateField()
     description = models.CharField(max_length=400, blank=True)
+    created_datetime = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.date} {self.description}"
+        return f"{self.transaction_id} {self.date} {self.description} {self.created_datetime}"
 
 
 class JournalEntryLine(models.Model):

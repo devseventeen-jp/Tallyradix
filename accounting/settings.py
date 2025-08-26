@@ -73,5 +73,20 @@ TIME_ZONE = os.getenv("DJANGO_TIME_ZONE", "UTC")
 USE_I18N = True
 USE_TZ = True
 
+# i18n target languages
+from django.utils.translation import gettext_lazy as _
+LANGUAGES = [
+    ('en', _('English')),
+    ('ja', _('Japanese')),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
+MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',
+]
+
 STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

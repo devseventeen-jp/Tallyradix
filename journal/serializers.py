@@ -31,7 +31,8 @@ class JournalEntrySerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         lines_data = validated_data.pop("lines")
-        entry = JournalEntry.objects.create(**validated_data)
+        user = self.context['request'].user 
+        entry = JournalEntry.objects.create(created_by=user, **validated_data)
         for line_data in lines_data:
             line_data["entry"] = entry
             JournalEntryLineSerializer().create(line_data)
