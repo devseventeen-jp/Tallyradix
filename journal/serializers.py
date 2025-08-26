@@ -17,10 +17,11 @@ class JournalEntryLineSerializer(serializers.ModelSerializer):
 
 class JournalEntrySerializer(serializers.ModelSerializer):
     lines = JournalEntryLineSerializer(many=True)
+    description = serializers.CharField()
 
     class Meta:
         model = JournalEntry
-        fields = ["id", "date", "description", "lines"]
+        fields = ["id", "transaction_id", "date", "description", "lines", "created_datetime", "created_by"]
 
     def validate(self, data):
         total_debit = sum(line.get("debit",0) for line in data["lines"])
