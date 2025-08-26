@@ -32,13 +32,37 @@ This project aims to provide a simple yet extensible way to handle double-entry 
 ```bash
 git clone https://github.com/devseventeen-jp/journal-entry-api.git
 cd journal-entry-api
-cat << EOF > .env
+```
+---
+
+### 2. Environment Setup
+
+Create .env and adjust:
+
+```env
 DJANGO_SECRET_KEY=supersecretkey
 DEBUG=1
 DATABASE_URL=postgres://postgres:postgres@db:5432/accounting_db
 DJANGO_LANGUAGE_CODE=ja
 DJANGO_TIME_ZONE=Asia/Tokyo
-# edit your-32-byte-key and DRF Tokn expire days
-AES_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+AES_KEY=your-32-byte-key
 TOKEN_EXPIRE_DAYS=30
-EOF
+```
+
+Generate a Fernet key:
+
+```bash
+python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+```
+---
+
+### 3. Run with Docker
+
+```bash
+docker-compose up --build
+```
+
+The API will be available at:
+👉 http://localhost:8000/api/journal/
+
+---
