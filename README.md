@@ -2,7 +2,7 @@
 # Simple Journal Entry API (Django + DRF)
 
 A lightweight and modular accounting journal entry API built with **Django** and **Django REST Framework (DRF)**.  
-This project aims to provide a simple yet extensible way to handle double-entry bookkeeping as an API, so it can be integrated into C2C marketplaces, e-commerce platforms, or other systems that require automated accounting.
+This project aims to provide a simple yet extensible way to handle double-entry bookkeeping as an API, so it can be integrated into B2C marketplaces, e-commerce platforms, or other systems that require automated accounting.
 
 ---
 
@@ -48,15 +48,17 @@ DJANGO_TIME_ZONE=Asia/Tokyo
 AES_KEY=your-32-byte-key
 TOKEN_EXPIRE_DAYS=30
 ```
-
-Generate a Fernet key:
-
-```bash
-python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
-```
 ---
 
-### 3. Run with Docker
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.dev.txt
+
+```
+------
+
+### 4. Run with Docker
 
 ```bash
 docker-compose up --build
