@@ -92,7 +92,7 @@ The response will contain a token:
 
 ```json
 {"token": "123abc456def..."}
-```json
+```
 
 Use this token in subsequent requests.
 
