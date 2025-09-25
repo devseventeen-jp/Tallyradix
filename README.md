@@ -37,6 +37,12 @@ cd journal-entry-api
 
 ### 2. Environment Setup
 
+Generate a Fernet key:
+
+```bash
+python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+```
+
 Create .env and adjust:
 
 ```env
@@ -45,7 +51,7 @@ DEBUG=1
 DATABASE_URL=postgres://postgres:postgres@db:5432/accounting_db
 DJANGO_LANGUAGE_CODE=ja
 DJANGO_TIME_ZONE=Asia/Tokyo
-AES_KEY=your-32-byte-key
+AES_KEY=your-fernet-key
 TOKEN_EXPIRE_DAYS=30
 ```
 ---
@@ -68,3 +74,72 @@ The API will be available at:
 👉 http://localhost:8000/api/journal/
 
 ---
+## API Quickstart
+
+This section demonstrates how to interact with the Journal API using `curl`.
+
+### Obtain a Token
+
+First, obtain an authentication token using your admin credentials:
+
+```bash
+curl -X POST http://localhost:8000/api/token/ \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "your_admin_password"}'
+```
+
+The response will contain a token:
+
+```json
+{"token": "123abc456def..."}
+```json
+
+Use this token in subsequent requests.
+
+### Create a Journal Entry
+
+```bash
+curl -X POST http://localhost:8000/api/journal-entries/ \
+  -H "Authorization: Token 123abc456def..." \
+  -H "Content-Type: application/json" \
+  -d '{
+        "transaction_id": "550e8400-e29b-41d4-a716-446655440000",
+        "description": "Digital product sale",
+        "entries": [
+          {
+            "account_code": "4000",
+            "account_name": "Revenue",
+            "debit": 0,
+            "credit": 1000
+          },
+          {
+            "account_code": "1110",
+            "account_name": "Cash",
+            "debit": 1000,
+            "credit": 0
+          }
+        ]
+      }'
+```
+
+### Retrieve Journal Entries
+
+```bash
+curl -X GET http://localhost:8000/api/journal-entries/ \
+  -H "Authorization: Token 123abc456def..."
+```
+
+## Notes
+
+- 🔹 Make sure your Django server is running on http://localhost:8000
+- 🔹 An admin user must be created beforehand (python manage.py createsuperuser)
+- 🔹 The transaction_id must be a valid UUID. You can generate one with:
+    - 🔹 CLinux / macOS: uuidgen
+    - 🔹 Windows PowerShell: [guid]::NewGuid()
+
+## Security Considerations
+
+- 🔹 .env files must not be committed to version control.
+- 🔹 The provided token authentication is intended for development and testing.
+    　For production, consider replacing it with JWT or OAuth2.
+- 🔹 Always use HTTPS in production deployments.
