@@ -134,12 +134,12 @@ curl -X GET http://localhost:8000/api/journal-entries/ \
 - 🔹 Make sure your Django server is running on http://localhost:8000
 - 🔹 An admin user must be created beforehand (python manage.py createsuperuser)
 - 🔹 The transaction_id must be a valid UUID. You can generate one with:
-    - 🔹 CLinux / macOS: uuidgen
+    - 🔹 Linux / macOS: uuidgen
     - 🔹 Windows PowerShell: [guid]::NewGuid()
 
 ## Security Considerations
 
 - 🔹 .env files must not be committed to version control.
-- 🔹 The provided token authentication is intended for development and testing.
-    　For production, consider replacing it with JWT or OAuth2.
+- 🔹 The provided token authentication is intended for development and testing.  
+For production, consider replacing it with JWT or OAuth2.
 - 🔹 Always use HTTPS in production deployments.
